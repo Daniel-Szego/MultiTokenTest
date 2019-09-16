@@ -26,7 +26,7 @@ composer archive list -a ./build/multitokentest.bna
 # Start business network
 echo "##### Start business network #########"
 
-composer network start --networkName multitokentest --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+composer network start --networkName multitokentest --networkVersion 0.0.6 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 
 # import network card identity
 echo "##### Import network admin card #########"
@@ -38,6 +38,28 @@ echo "##### Test: ping #########"
 
 composer network ping --card admin@multitokentest
 
+# init data - Like Token
+echo "##### Create init data: Like Token with transaction #########"
 
+composer transaction submit --card admin@multitokentest -d '{"$class":"test.multitokentest.hyperledger.InitData"}'
 
+# init data - EUR token
+echo "##### Create init data: EUR Token with direct import #########"
 
+composer transaction submit --card admin@multitokentest -d '{"$class": "org.hyperledger.composer.system.AddAsset", "targetRegistry": "resource:org.hyperledger.composer.system.AssetRegistry#test.multitokentest.hyperledger.TokenType", "resources": [{"$class": "test.multitokentest.hyperledger.TokenType", "tokenTypeId": "eurTokenId", "tokenTypeName": "EUR", "TokenMasterType": "FUNGIBLE", "supply": 1000}]}'
+
+# init data - Add participant User
+
+composer transaction submit --card admin@multitokentest -d '{"$class": "org.hyperledger.composer.system.AddParticipant", "targetRegistry": "resource:org.hyperledger.composer.system.ParticipantRegistry#test.multitokentest.hyperledger.User", "resources": [{"$class": "test.multitokentest.hyperledger.User", "actorId": "internalUserId1", "externalId": "externalUserId1111"}]}'
+
+# issue new identity to the User
+
+composer identity issue -c admin@multitokentest -f testuser.card -u user -a "resource:test.multitokentest.hyperledger.User#internalUserId1"
+
+# import the new identity to the Wallet
+
+composer card import -f testuser.card
+
+# ping network from the new identity
+
+composer network ping -c user@multitokentest

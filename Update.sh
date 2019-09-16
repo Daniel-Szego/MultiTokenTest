@@ -26,7 +26,7 @@ composer archive list -a ./build/multitokentest.bna
 # Start business network
 echo "##### Update business network #########"
 
-composer network upgrade -c PeerAdmin@hlfv1 -n multitokentest -V 0.0.2
+composer network upgrade -c PeerAdmin@hlfv1 -n multitokentest -V 0.0.5
 
 # test if stuffs are cool
 echo "##### Test: ping #########"

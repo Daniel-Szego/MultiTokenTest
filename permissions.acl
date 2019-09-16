@@ -15,9 +15,17 @@
 /**
  * Sample access control list.
  */
+rule EverybodyCanDoEverything {
+    description: "Everybody can do everything"
+    participant: "**"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
 rule EverybodyCanReadEverything {
     description: "Allow all participants read access to all resources"
-    participant: "test.multitokentest.hyperledger.SampleParticipant"
+    participant: "test.multitokentest.hyperledger.Actor"
     operation: READ
     resource: "test.multitokentest.hyperledger.*"
     action: ALLOW
@@ -25,18 +33,9 @@ rule EverybodyCanReadEverything {
 
 rule EverybodyCanSubmitTransactions {
     description: "Allow all participants to submit transactions"
-    participant: "test.multitokentest.hyperledger.SampleParticipant"
+    participant: "test.multitokentest.hyperledger.Actor"
     operation: CREATE
-    resource: "test.multitokentest.hyperledger.SampleTransaction"
-    action: ALLOW
-}
-
-rule OwnerHasFullAccessToTheirAssets {
-    description: "Allow all participants full access to their assets"
-    participant(p): "test.multitokentest.hyperledger.SampleParticipant"
-    operation: ALL
-    resource(r): "test.multitokentest.hyperledger.SampleAsset"
-    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    resource: "test.multitokentest.hyperledger.Like"
     action: ALLOW
 }
 
