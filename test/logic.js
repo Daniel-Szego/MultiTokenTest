@@ -27,9 +27,9 @@ chai.should();
 chai.use(require('chai-as-promised'));
 
 const namespace = 'test.multitokentest.hyperledger';
-const assetType = 'SampleAsset';
+const assetType = 'TokenType';
 const assetNS = namespace + '.' + assetType;
-const participantType = 'SampleParticipant';
+const participantType = 'User';
 const participantNS = namespace + '.' + participantType;
 
 describe('#' + namespace, () => {

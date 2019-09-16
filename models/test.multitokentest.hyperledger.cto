@@ -34,7 +34,7 @@ enum TokenMasterType {
 asset TokenType identified by tokenTypeId {
   o String tokenTypeId
   o String tokenTypeName
-  o TokenMasterType TokenMasterType
+  o TokenMasterType tokenMasterType
   o Integer supply
 }
 

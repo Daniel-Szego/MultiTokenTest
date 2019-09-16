@@ -26,7 +26,7 @@ composer archive list -a ./build/multitokentest.bna
 # Start business network
 echo "##### Start business network #########"
 
-composer network start --networkName multitokentest --networkVersion 0.0.6 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+composer network start --networkName multitokentest --networkVersion 0.0.12 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 
 # import network card identity
 echo "##### Import network admin card #########"
@@ -46,7 +46,7 @@ composer transaction submit --card admin@multitokentest -d '{"$class":"test.mult
 # init data - EUR token
 echo "##### Create init data: EUR Token with direct import #########"
 
-composer transaction submit --card admin@multitokentest -d '{"$class": "org.hyperledger.composer.system.AddAsset", "targetRegistry": "resource:org.hyperledger.composer.system.AssetRegistry#test.multitokentest.hyperledger.TokenType", "resources": [{"$class": "test.multitokentest.hyperledger.TokenType", "tokenTypeId": "eurTokenId", "tokenTypeName": "EUR", "TokenMasterType": "FUNGIBLE", "supply": 1000}]}'
+composer transaction submit --card admin@multitokentest -d '{"$class": "org.hyperledger.composer.system.AddAsset", "targetRegistry": "resource:org.hyperledger.composer.system.AssetRegistry#test.multitokentest.hyperledger.TokenType", "resources": [{"$class": "test.multitokentest.hyperledger.TokenType", "tokenTypeId": "eurTokenId", "tokenTypeName": "EUR", "tokenMasterType": "FUNGIBLE", "supply": 1000}]}'
 
 # init data - Add participant User
 
@@ -63,3 +63,8 @@ composer card import -f testuser.card
 # ping network from the new identity
 
 composer network ping -c user@multitokentest
+
+# start composer rest server
+
+composer-rest-server -c admin@multitokentest -n never -u true -w true
+
