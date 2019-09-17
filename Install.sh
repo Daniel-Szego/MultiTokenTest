@@ -26,7 +26,7 @@ composer archive list -a ./build/multitokentest.bna
 # Start business network
 echo "##### Start business network #########"
 
-composer network start --networkName multitokentest --networkVersion 0.0.12 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+composer network start --networkName multitokentest --networkVersion 0.0.15 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 
 # import network card identity
 echo "##### Import network admin card #########"

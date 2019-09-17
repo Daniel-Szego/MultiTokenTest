@@ -8,6 +8,12 @@ query Query_AllParticipants {
         SELECT test.multitokentest.hyperledger.Actor
 }
 
+query Query_AllUsers {
+    description: "Select all user"
+    statement:
+        SELECT test.multitokentest.hyperledger.User
+}
+
 query Query_AllWallets {
     description: "Select all wallets"
     statement:
