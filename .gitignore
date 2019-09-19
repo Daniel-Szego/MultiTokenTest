@@ -1,0 +1,7 @@
+*.card
+*.txt
+*.zip
+build/*
+node_modules/*
+test/*
+

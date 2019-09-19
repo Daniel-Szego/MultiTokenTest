@@ -18,25 +18,72 @@
 
 namespace test.multitokentest.hyperledger
 
-participant SampleParticipant identified by participantId {
-  o String participantId
-  o String firstName
-  o String lastName
+/**
+ * Enums and concepts
+ */
+
+enum TokenMasterType {
+  o FUNGIBLE
+  o NONFUNGIBLE
 }
 
-asset SampleAsset identified by assetId {
-  o String assetId
-  --> SampleParticipant owner
-  o String value
+/**
+ * Assets
+ */
+
+asset TokenType identified by tokenTypeId {
+  o String tokenTypeId
+  o String tokenTypeName
+  o TokenMasterType tokenMasterType
+  o Integer supply
 }
 
-transaction SampleTransaction {
-  --> SampleAsset asset
-  o String newValue
+asset Wallet identified by walletId {
+  o String walletId
+  --> User actor
+  --> TokenType tokenType
+  o Double balance
 }
 
-event SampleEvent {
-  --> SampleAsset asset
-  o String oldValue
-  o String newValue
+/**
+ * Participants
+ */
+
+abstract participant Actor identified by actorId {
+  o String actorId
+  o String externalId
 }
+
+participant User extends Actor {  
+} 
+
+participant Admin extends Actor {  
+} 
+
+/**
+ * Transactions
+ */
+
+transaction Like {
+  o String walletId
+}
+
+transaction Transfer {
+  o String walletIdFrom
+  o String walletIdTo
+  o Double amount
+}
+
+transaction Exchange {
+  o String walletIdFrom
+  o String walletIdTo
+  o Double Amount
+}
+
+transaction InitData {
+}
+
+
+/**
+ * Events
+ */

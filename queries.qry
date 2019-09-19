@@ -1,0 +1,45 @@
+/**
+ * Simple query
+ */
+
+query Query_AllParticipants {
+    description: "Select all particpants"
+    statement:
+        SELECT test.multitokentest.hyperledger.Actor
+}
+
+query Query_AllUsers {
+    description: "Select all user"
+    statement:
+        SELECT test.multitokentest.hyperledger.User
+}
+
+query Query_AllWallets {
+    description: "Select all wallets"
+    statement:
+        SELECT test.multitokentest.hyperledger.Wallet
+}
+
+/**
+ * Conditional query
+ */
+
+query Query_TokenLikeTypes {
+    description: "Select token types where token type is like"
+    statement:
+        SELECT test.multitokentest.hyperledger.TokenType
+          WHERE (tokenMasterType == "FUNGIBLE")
+}
+
+/**
+ * Parametrizied query
+ */
+
+query Query_TokenTypes {
+    description: "Select token types where token type is like"
+    statement:
+        SELECT test.multitokentest.hyperledger.TokenType
+          WHERE (tokenMasterType == _$tokenType)
+}
+
+
