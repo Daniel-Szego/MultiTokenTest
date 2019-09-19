@@ -3,7 +3,7 @@
     "composer": "^0.20.9"
   },
   "name": "multitokentest",
-  "version": "0.0.12",
+  "version": "0.0.15",
   "description": "Multi token test system with Hyperledger Composer",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/multitokentest.bna",
