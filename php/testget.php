@@ -7,13 +7,20 @@ $ERROR_MESSAGE = '';
 
 // ************* Call API:
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, "http://localhost:3000/api/queries/Query_TokenLikeTypes");
+curl_setopt($ch, CURLOPT_URL, "https://localhost:3000/api/queries/Query_TokenLikeTypes");
 //curl_setopt($ch, CURLOPT_POST, 1);// set post data to true
 //curl_setopt($ch, CURLOPT_POSTFIELDS,"username=myname&password=mypass");   // post data
+//curl_setopt($ch, CURLOPT_CAPATH, "/etc/ssl/certs");
+//curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 1);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+//curl_setopt($ch, CURLOPT_HEADER, 1);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $json = curl_exec($ch);
 curl_close ($ch);
 
+// patch extra last character
+// $json = substr_replace($json ,"", -1);
 if (!$processed && $ERROR_MESSAGE != '') {
     echo 'ERROR';
     echo PHP_EOL;
@@ -35,21 +42,22 @@ else {
         echo 'Response item';
         echo PHP_EOL;
 
-        echo '  TokenTypeID : ';
+        echo '  Token Type ID : ';
         echo $resp->{'tokenTypeId'};
         echo PHP_EOL;
 
-        echo '  TokenTypeName : ';
+        echo '  Token Type Name : ';
         echo $resp->{'tokenTypeName'};
         echo PHP_EOL;
 
-        echo '  TokenMasterType : ';
+        echo '  Token Master Name : ';
         echo $resp->{'tokenMasterType'};
         echo PHP_EOL;
 
         echo '  Supply : ';
         echo $resp->{'supply'};
         echo PHP_EOL;
+
     }
 }
 ?>

@@ -1,0 +1,38 @@
+export COMPOSER_PROVIDERS='{
+  "local": { 
+    "provider": "local", 
+    "module": "passport-local", 
+    "usernameField": "username", 
+    "passwordField": "password", 
+    "authPath": "/auth/local", 
+    "callbackURL":"/auth/local/callback",
+    "successRedirect": "/", 
+    "failureRedirect": "/", 
+    "setAccessToken": true, 
+    "callbackHTTPMethod": "post" 
+   }
+}
+
+export COMPOSER_PROVIDERS='{"local": {"provider": "local","module": "passport-local","usernameField": "username","passwordField": "password","authPath": "/auth/local","callbackURL":"/auth/local/callback","successRedirect": "/","failureRedirect": "/","setAccessToken": true,"callbackHTTPMethod": "post"}}'
+
+export COMPOSER_PROVIDERS='{"basic": {"provider": "basic","module": "passport-http","clientID": "bob","clientSecret": "bobpass","authPath": "/auth/local","callbackURL": "/auth/local/callback","successRedirect": "/","failureRedirect": "/login"}}'
+
+composer-rest-server -c admin@multitokentest -a true -n never -u true -w true
+
+curl -H "Content-Type: application/json" -X POST -d '{"username":"username","password":"password"}' http://localhost:3000/auth/local
+
+#Generate test certificate:
+
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem
+
+#Generate test certificate without password:
+
+openssl req -nodes -new -x509 -keyout server.key -out server.cert
+
+#With authentification:
+
+composer-rest-server -c admin@multitokentest -a true -n never -u true -w true -t -e cert.pem -k key.pem
+
+#Without authentification:
+
+composer-rest-server -c admin@multitokentest -n never -u true -w true -t -e server.cert -k server.key
